@@ -79,6 +79,7 @@ td {
     padding: 15px;
     text-align: left;
     border-bottom: 1px solid #e0e0e0;
+    font-weight: bold;
 }
 
 tr:last-child td {
@@ -159,4 +160,22 @@ tr:nth-child(even) {
     text-align: center;
     color: #2c3e50;
     margin-bottom: 20px;
+}
+
+nav a.active {
+    background-color: #34495e;
+    color: #3498db;
+}
+
+#pagination button.active {
+    background-color: #2980b9;
+    font-weight: bold;
+}
+
+.positive {
+    color: #2ecc71;
+}
+
+.negative {
+    color: #e74c3c;
 }

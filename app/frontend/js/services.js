@@ -18,8 +18,11 @@ function createNavbar() {
         const link = document.createElement('a');
         link.href = '#';
         link.textContent = name;
+        link.classList.toggle('active', name === currentCategory);
         link.addEventListener('click', (e) => {
             e.preventDefault();
+            document.querySelectorAll('#navbar a').forEach(a => a.classList.remove('active'));
+            link.classList.add('active');
             currentCategory = name;
             currentPage = 1;
             fetchData();
@@ -32,11 +35,14 @@ function createPagination() {
     const paginationElement = document.getElementById('pagination');
     paginationElement.innerHTML = '';
 
-    for (let i = 1; i <= 88; i++) {
+    for (let i = 1; i <= 60; i++) {
         const button = document.createElement('button');
         button.textContent = i;
+        button.classList.toggle('active', i === currentPage);
         button.addEventListener('click', (e) => {
-            e.preventDefault()
+            e.preventDefault();
+            document.querySelectorAll('#pagination button').forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
             currentPage = i;
             fetchData();
         });
@@ -61,11 +67,13 @@ function updateTable(data, label) {
     tableHead.appendChild(row);
     data.forEach(item => {
         const row = document.createElement('tr');
+        const todayValue = item['Refined Today']
+        const todayClass = todayValue > 0 ? 'positive' : 'negative';
         row.innerHTML = `
             <td>${item.Name}</td>
             <td>${item[label]}</td>
             <td>${item.Price}</td>
-            <td>${item.Today}</td>
+            <td class="${todayClass}">${item.Today}</td>
             <td>${item.Country}</td>
         `;
         tableBody.appendChild(row);
@@ -99,6 +107,7 @@ async function fetchData() {
 function init() {
     createNavbar();
     createPagination();
+    fetchData();
 }
 
 init();

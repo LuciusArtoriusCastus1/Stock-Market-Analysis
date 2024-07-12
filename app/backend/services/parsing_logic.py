@@ -41,7 +41,7 @@ def parse_url(url):
             ]
             images = [
                 create_plot(data, 'Name', 'Refined Price', 'Price', 'Top companies by price per share', 'price.png', False),
-                create_plot(data, 'Name', f'Refined {data_name}', f'{data_name}', 'Top companies by Revenue', f'{data_name.lower()}.png', False),
+                create_plot(data, 'Name', f'Refined {data_name}', f'{data_name}', f'Top companies by {data_name}', f'{data_name.lower()}.png', False),
                 create_plot(data, 'Name', 'Refined Today', 'Today', 'Top companies with biggest share growth', 'today_up.png', False),
                 create_plot(data, 'Name', 'Refined Today', 'Today', 'Top companies with lowest share growth', 'today_down.png', True)
             ]
