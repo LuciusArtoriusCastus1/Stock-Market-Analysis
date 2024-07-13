@@ -3,7 +3,8 @@ def refine_text(text):
 
 
 def refine_numbers(text):
-    text = text.replace('\n', '').replace(' ', '').replace('$', '').replace('%', '').replace(',', '.')
+    text = (text.replace('\n', '').replace(' ', '')
+            .replace('$', '').replace('%', '').replace(',', '.'))
     if 'N/A' in text:
         return None
     elif 'T' in text:

@@ -9,13 +9,22 @@ def parse_url(url):
         with session.get(url) as response:
             html = response.text
             soup = bs4.BeautifulSoup(html, 'html.parser')
-            table = soup.find('table', class_='default-table table marketcap-table dataTable')
+            table = soup.find(
+                'table',
+                class_='default-table table marketcap-table dataTable'
+            )
             body = table.find('tbody')
             head = table.find('thead')
             data_name = refine_text(head.find('th', tid=4).text)
 
-            names = [name.text for name in body.find_all('div', class_='company-name')]
-            rank = [rank.text for rank in body.find_all('td', class_='rank-td td-right')]
+            names = [
+                name.text for name in
+                body.find_all('div', class_='company-name')
+            ]
+            rank = [
+                rank.text for rank in
+                body.find_all('td', class_='rank-td td-right')
+            ]
             cap_price = body.find_all('td', class_='td-right')
             data = [cap_price[i].text for i in range(1, len(cap_price), 3)]
             prices = [cap_price[i].text for i in range(2, len(cap_price), 3)]
@@ -25,7 +34,10 @@ def parse_url(url):
                     todays[i] = '-' + todays[i].text
                 else:
                     todays[i] = todays[i].text
-            countries = [country.text for country in body.find_all('span', class_='responsive-hidden')]
+            countries = [
+                country.text for country in
+                body.find_all('span', class_='responsive-hidden')
+            ]
 
             data = [
                 {
@@ -43,10 +55,26 @@ def parse_url(url):
             ]
             page = url.split('/')[-1]
             images = [
-                create_plot(data, 'Name', 'Refined Price', 'Price', 'Top companies by price per share', f'price_{page}.png', False),
-                create_plot(data, 'Name', f'Refined {data_name}', f'{data_name}', f'Top companies by {data_name}', f'{data_name.lower()}_{page}.png', False),
-                create_plot(data, 'Name', 'Refined Today', 'Today', 'Top companies with biggest share growth', f'today_up_{page}.png', False),
-                create_plot(data, 'Name', 'Refined Today', 'Today', 'Top companies with lowest share growth', f'today_down_{page}.png', True)
+                create_plot(
+                    data, 'Name', 'Refined Price', 'Price',
+                    'Top companies by price per share',
+                    f'price_{page}.png', False
+                ),
+                create_plot(
+                    data, 'Name', f'Refined {data_name}', f'{data_name}',
+                    f'Top companies by {data_name}',
+                    f'{data_name.lower()}_{page}.png', False
+                ),
+                create_plot(
+                    data, 'Name', 'Refined Today', 'Today',
+                    'Top companies with biggest share growth',
+                    f'today_up_{page}.png', False
+                ),
+                create_plot(
+                    data, 'Name', 'Refined Today', 'Today',
+                    'Top companies with lowest share growth',
+                    f'today_down_{page}.png', True
+                )
             ]
 
             return {'data': data, 'images': images, 'label': data_name}
