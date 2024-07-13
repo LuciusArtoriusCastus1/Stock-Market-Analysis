@@ -15,6 +15,7 @@ def parse_url(url):
             data_name = refine_text(head.find('th', tid=4).text)
 
             names = [name.text for name in body.find_all('div', class_='company-name')]
+            rank = [rank.text for rank in body.find_all('td', class_='rank-td td-right')]
             cap_price = body.find_all('td', class_='td-right')
             data = [cap_price[i].text for i in range(1, len(cap_price), 3)]
             prices = [cap_price[i].text for i in range(2, len(cap_price), 3)]
@@ -28,6 +29,7 @@ def parse_url(url):
 
             data = [
                 {
+                    'Rank': refine_text(rank[i]),
                     'Name':  refine_text(names[i]),
                     refine_text(data_name): data[i],
                     f'Refined {data_name}': refine_numbers(data[i]),
@@ -39,11 +41,12 @@ def parse_url(url):
                 }
                 for i in range(len(names))
             ]
+            page = url.split('/')[-1]
             images = [
-                create_plot(data, 'Name', 'Refined Price', 'Price', 'Top companies by price per share', 'price.png', False),
-                create_plot(data, 'Name', f'Refined {data_name}', f'{data_name}', f'Top companies by {data_name}', f'{data_name.lower()}.png', False),
-                create_plot(data, 'Name', 'Refined Today', 'Today', 'Top companies with biggest share growth', 'today_up.png', False),
-                create_plot(data, 'Name', 'Refined Today', 'Today', 'Top companies with lowest share growth', 'today_down.png', True)
+                create_plot(data, 'Name', 'Refined Price', 'Price', 'Top companies by price per share', f'price_{page}.png', False),
+                create_plot(data, 'Name', f'Refined {data_name}', f'{data_name}', f'Top companies by {data_name}', f'{data_name.lower()}_{page}.png', False),
+                create_plot(data, 'Name', 'Refined Today', 'Today', 'Top companies with biggest share growth', f'today_up_{page}.png', False),
+                create_plot(data, 'Name', 'Refined Today', 'Today', 'Top companies with lowest share growth', f'today_down_{page}.png', True)
             ]
 
             return {'data': data, 'images': images, 'label': data_name}

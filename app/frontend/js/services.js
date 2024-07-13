@@ -55,7 +55,7 @@ function updateTable(data, label) {
     tableBody.innerHTML = '';
     const tableHead = document.getElementById('tableHead');
     tableHead.innerHTML = '';
-    const labels = ['Name', label, 'Price', 'Today', 'Country']
+    const labels = ['Rank', 'Name', label, 'Price', 'Today', 'Country']
     const row = document.createElement('tr');
     row.innerHTML = `
         <th>${labels[0]}</th>
@@ -63,6 +63,7 @@ function updateTable(data, label) {
         <th>${labels[2]}</th>
         <th>${labels[3]}</th>
         <th>${labels[4]}</th>
+        <th>${labels[5]}</th>
     `;
     tableHead.appendChild(row);
     data.forEach(item => {
@@ -70,6 +71,7 @@ function updateTable(data, label) {
         const todayValue = item['Refined Today']
         const todayClass = todayValue > 0 ? 'positive' : 'negative';
         row.innerHTML = `
+            <td>${item.Rank}</td>
             <td>${item.Name}</td>
             <td>${item[label]}</td>
             <td>${item.Price}</td>
