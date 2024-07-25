@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Financial Data Dashboard</title>
-    <link rel="stylesheet" href="../style/index.css">
+    <link rel="stylesheet" href="{{ url_for('static', path='/style/index.css') }}">
 </head>
 <body>
 
@@ -21,11 +21,11 @@
         <div id="pagination"></div>
 
         <div id="images-container">
-            <h2>Related Images</h2>
+            <h2>Related Plots</h2>
             <div id="images"></div>
         </div>
     </main>
 
-    <script src="../js/services.js"></script>
+    <script src="{{ url_for('static', path='/js/services.js') }}"></script>
 </body>
 </html>

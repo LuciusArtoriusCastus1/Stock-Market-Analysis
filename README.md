@@ -21,6 +21,6 @@ To start the app: <br />
 ```pip install -r req.txt``` <br />
 5. Start the fastapi server <br />
 ```fastapi dev app/backend/main.py --reload``` <br />
-6. and after, open the ```index.html``` file from the ```app/frontend/templates``` in a browser <br />
+6. Open in browser ```http://127.0.0.1:8000``` <br />
 
 # So, basically that's it! <br />

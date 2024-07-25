@@ -88,7 +88,8 @@ function displayImages(images) {
 
     images.forEach(src => {
         const img = document.createElement('img');
-        img.src = "../../backend/images/" + src;
+        img.src = `/images/${src}`;
+        console.log();
         img.alt = 'Financial Data Image';
         imagesElement.appendChild(img);
     });
